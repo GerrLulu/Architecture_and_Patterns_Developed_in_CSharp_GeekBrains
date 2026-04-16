@@ -1,0 +1,2 @@
+# Architecture_and_Patterns_Developed_in_CSharp_GeekBrains
+Home work for GeekBrains
