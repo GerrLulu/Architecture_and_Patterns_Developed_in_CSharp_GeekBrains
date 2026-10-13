@@ -25,14 +25,16 @@ namespace AsterGame.Model.Player
         private void Awake()
         {
             gameObject.tag = "Player";
+
             _camera = Camera.main;
+
             _rigidbody = GetComponent<Rigidbody2D>();
 
             var moveTransform = new AccelerationMove(_rigidbody, _speed, _acceleration);
             var rotation = new RotationShip(transform, _offset);
             _ship = new Ship(moveTransform, rotation/*, shoot*/);
 
-            _unputController = new UnputController(_ship);
+            _unputController = new UnputController(_ship, _camera);
 
             //_pool = new PoolForGameObjects<PlayerBullets>(_bulletPrefab, _bulletPrefab.PoolCount, transform);
             //_pool.autoPoolExpansion = _bulletPrefab.AutoPoolExpansion;
@@ -50,12 +52,10 @@ namespace AsterGame.Model.Player
         //    };
         //}
 
-        private void Update()
+        private void LateUpdate()
         {
             _unputController.Moving();
-
-            var direction = _camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            _unputController.Rotating(direction);
+            _unputController.Rotating(transform.position);
 
             //if (Input.GetButtonDown("Fire1"))
             //    _ship.InstantiateBullet(_barrel);
