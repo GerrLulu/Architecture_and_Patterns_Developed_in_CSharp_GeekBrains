@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using AsterGame.Model.SpaceShip;
+using UnityEngine;
 
-namespace AsterGame.Model.Player
+namespace AsterGame.Controller
 {
-    internal sealed class UnputController
+    internal sealed class InputController
     {
         private readonly Ship _ship;
 
         private readonly Camera _camera;
 
 
-        public UnputController(Ship ship, Camera camera)
+        public InputController(Ship ship, Camera camera)
         {
             _ship = ship;
             _camera = camera;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AsterGame.Model.Player
+namespace AsterGame.Model.SpaceShip
 {
     internal class AccelerationMove : MoveTransform
     {

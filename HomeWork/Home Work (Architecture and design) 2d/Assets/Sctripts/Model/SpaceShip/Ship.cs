@@ -1,7 +1,7 @@
 using AsterGame.Interface;
 using UnityEngine;
 
-namespace AsterGame.Model.Player
+namespace AsterGame.Model.SpaceShip
 {
     internal sealed class Ship : IMove, IRotation/*, IShoot*/
     {

@@ -1,7 +1,10 @@
+using AsterGame.Additionally;
+using AsterGame.Controller;
+using AsterGame.Model.SpaceShip;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AsterGame.Model.Player
+namespace AsterGame.Model
 {
     internal sealed class Player : MonoBehaviour
     {
@@ -18,23 +21,28 @@ namespace AsterGame.Model.Player
 
         private Camera _camera;
         private Rigidbody2D _rigidbody;
+        private SpriteRenderer _spriteRenderer;
         private Ship _ship;
-        private UnputController _unputController;
+        private InputController _inputController;
+        private InsideCamera _insideCamera;
 
 
         private void Awake()
         {
-            gameObject.tag = "Player";
+            gameObject.tag = ConstForGame.PLAYER_TAG;
 
-            _camera = Camera.main;
+            if(_camera == null)
+                _camera = Camera.main;
 
             _rigidbody = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
 
             var moveTransform = new AccelerationMove(_rigidbody, _speed, _acceleration);
             var rotation = new RotationShip(transform, _offset);
             _ship = new Ship(moveTransform, rotation/*, shoot*/);
 
-            _unputController = new UnputController(_ship, _camera);
+            _inputController = new InputController(_ship, _camera);
+            _insideCamera = new InsideCamera(_camera, _rigidbody, _spriteRenderer);
 
             //_pool = new PoolForGameObjects<PlayerBullets>(_bulletPrefab, _bulletPrefab.PoolCount, transform);
             //_pool.autoPoolExpansion = _bulletPrefab.AutoPoolExpansion;
@@ -52,14 +60,19 @@ namespace AsterGame.Model.Player
         //    };
         //}
 
-        private void LateUpdate()
+        private void Update()
         {
-            _unputController.Moving();
-            _unputController.Rotating(transform.position);
-
             //if (Input.GetButtonDown("Fire1"))
             //    _ship.InstantiateBullet(_barrel);
         }
+
+        private void LateUpdate()
+        {
+            _inputController.Moving();
+            _inputController.Rotating(transform.position);
+        }
+
+        private void FixedUpdate() => _insideCamera.KeepInsideCamera();
 
 
         public void MinusPlayerHP(float value)
