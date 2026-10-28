@@ -10,7 +10,7 @@ namespace AsterGame.Additionally
         private List<T> _pool;
         private Transform _container;
         
-        public bool autoPoolExpansion { get; set; }
+        public bool AutoPoolExpansion { get; set; }
 
 
         public PoolForGameObjects(T prefabGameObject, int count, Transform container)
@@ -58,7 +58,7 @@ namespace AsterGame.Additionally
             if (HasFreeElement(out var element))
                 return element;
 
-            if (autoPoolExpansion)
+            if (AutoPoolExpansion)
                 return CreateGameObject(true);
 
             throw new Exception($"Нет свободных элементов в пуле типа {typeof(T)}");

@@ -31,6 +31,12 @@ namespace AsterGame.Controller
         {
             var direction = _camera.ScreenToWorldPoint(Input.mousePosition) - position;
             _ship.Rotation(direction);
-        } 
+        }
+
+        public void Shoot(Transform cannonBarrel)
+        {
+            if (Input.GetButtonDown("Fire1"))
+                _ship.InstantiateBullet(cannonBarrel);
+        }
     }
 }

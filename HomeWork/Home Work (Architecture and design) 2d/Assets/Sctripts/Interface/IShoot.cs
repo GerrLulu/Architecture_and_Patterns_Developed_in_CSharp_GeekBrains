@@ -5,7 +5,7 @@ namespace AsterGame.Interface
 {
     internal interface IShoot
     {
-        void InstantiateBullet(Transform barrel);
+        void InstantiateBullet(Transform cannonBarrel);
 
         //iterator
         //IShootingMode this[int index] { get; }

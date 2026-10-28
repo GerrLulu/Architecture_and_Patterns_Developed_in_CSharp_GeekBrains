@@ -7,17 +7,18 @@ namespace AsterGame.Model.SpaceShip
     {
         private readonly IMove _moveImplementation;
         private readonly IRotation _rotationImplementation;
-        //private readonly IShoot _shootImplementation;
+        private readonly IShoot _shootImplementation;
 
         public float Speed => _moveImplementation.Speed;
         public float Offset => _rotationImplementation.Offset;
 
 
-        public Ship(IMove moveImplementation, IRotation rotationImplementation/*, IShoot shootImplementation*/)
+        public Ship(IMove moveImplementation, IRotation rotationImplementation,
+            IShoot shootImplementation)
         {
             _moveImplementation = moveImplementation;
             _rotationImplementation = rotationImplementation;
-            //_shootImplementation = shootImplementation;
+            _shootImplementation = shootImplementation;
         }
 
 
@@ -25,7 +26,7 @@ namespace AsterGame.Model.SpaceShip
 
         public void Rotation(Vector3 direction) => _rotationImplementation.Rotation(direction);
 
-        //public void InstantiateBullet(Transform barrel) => _shootImplementation.InstantiateBullet(barrel);
+        public void InstantiateBullet(Transform cannonBarrel) => _shootImplementation.InstantiateBullet(cannonBarrel);
 
         public void AddAcceleration()
         {

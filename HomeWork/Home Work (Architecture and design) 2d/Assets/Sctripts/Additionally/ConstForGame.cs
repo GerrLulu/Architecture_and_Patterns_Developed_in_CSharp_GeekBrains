@@ -4,7 +4,7 @@
     {
         public const string PLAYER_TAG = "Player";
         public const string ASTEROID_TAG = "Asteroid";
-        public const string ENEMY_SHIP = "Enemy Ship";
-        public const string BACKGROUND = "Background";
+        public const string ENEMY_SHIP_TAG = "Enemy Ship";
+        public const string BACKGROUND_TAG = "Background";
     }
 }

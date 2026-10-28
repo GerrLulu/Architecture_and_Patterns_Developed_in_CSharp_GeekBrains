@@ -2,14 +2,14 @@
 
 namespace AsterGame.Controller
 {
-    internal sealed class InsideCamera
+    internal sealed class ObjectInsideCamera
     {
         private Camera _camera;
         private Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
 
 
-        public InsideCamera(Camera camera, Rigidbody2D rigidbody, SpriteRenderer spriteRenderer)
+        public ObjectInsideCamera(Camera camera, Rigidbody2D rigidbody, SpriteRenderer spriteRenderer)
         {
             _camera = camera;
             _rigidbody = rigidbody;
