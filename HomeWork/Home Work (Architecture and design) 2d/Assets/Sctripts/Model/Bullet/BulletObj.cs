@@ -47,7 +47,8 @@ namespace AsterGame.Model.Bullet
         }
 
         
-        public virtual void Shoot(Vector2 direction) => _rigidbody.AddForce(direction * _forceOfShot);
+        public virtual void Shoot(Vector2 direction) =>
+            _rigidbody.AddForce(direction * _forceOfShot);
 
         protected virtual void Interaction()
         {
