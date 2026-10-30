@@ -8,6 +8,13 @@ namespace AsterGame.Model.Enemies
 {
     internal class EnemyShip : Enemy
     {
+
+        protected override void Start()
+        {
+            base.Start();
+        }
+
+
         public override void Move(UnityEngine.Vector2 direction)
         {
             throw new NotImplementedException();

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6567346274894374436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.552, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b889c4b5a79ce24792567eecb2f90f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Model.Bullet.EnemyBullet
-  _damage: -5
-  _forceOfShot: 0
-  _poolCount: 0
-  _autoPoolExpansion: 0
+  _damage: -2
+  _forceOfShot: 500
+  _poolCount: 100
+  _autoPoolExpansion: 1

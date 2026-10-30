@@ -19,7 +19,7 @@
             if (currentValueHP > _maxHealth)
                 currentValueHP = _maxHealth;
 
-            if (currentValueHP < 0)
+            if (currentValueHP <= 0)
                 isAlive = false;
         }
     }

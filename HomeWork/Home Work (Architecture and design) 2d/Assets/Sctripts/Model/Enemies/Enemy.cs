@@ -7,9 +7,13 @@ namespace AsterGame.Model.Enemies
 {
     internal abstract class Enemy : MonoBehaviour
     {
-        [SerializeField] private int _healthPoint;
-        [SerializeField] private int _collisionDamage;
+        [SerializeField] protected float _minMultiplier;
+        [SerializeField] protected float _maxMultiplier;
+        [SerializeField] protected int _minHealthPoint;
+        [SerializeField] protected int _minCollisionDamage;
 
+        protected int _healthPoint;
+        protected int _collisionDamage;
         private Camera _camera;
         protected Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
@@ -44,10 +48,15 @@ namespace AsterGame.Model.Enemies
         protected virtual void TakeDamage(int value)
         {
             bool isAlive = gameObject.activeSelf;
-            _changerHealth.ChangeHealth(ref _healthPoint, value, ref isAlive);
+            _changerHealth.ChangeHealth(ref _minHealthPoint, value, ref isAlive);
 
             if (isAlive == false)
                 gameObject.SetActive(false);
+        }
+
+        protected float Randomizer(float min, float max)
+        {
+            return UnityEngine.Random.Range(min, max);
         }
     }
 }
