@@ -1,6 +1,6 @@
 ﻿namespace AsterGame.Model.Bullet
 {
-    internal class EnemyBullet : BulletObj
+    internal sealed class EnemyBullet : BulletObj
     {
     }
 }

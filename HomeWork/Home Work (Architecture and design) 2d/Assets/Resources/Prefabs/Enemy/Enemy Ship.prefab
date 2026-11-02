@@ -215,4 +215,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de826a0823b753541a0fc168e5ac6a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Model.Enemies.EnemyShip
+  _minMultiplier: 0
+  _maxMultiplier: 0
   _healthPoint: 0
+  _moveForce: 0
+  _collisionDamage: 0
+  _player: {fileID: 0}
+  _cannonBarrel: {fileID: 4444304751819637915}
+  _bulletPrefab: {fileID: 0}
+  _containerEnemyBullets: {fileID: 0}
+  _fireInterval: 0
+  _stopTreshold: 0
+  _maxMoveTime: 0
+  _maxStopTime: 0

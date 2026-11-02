@@ -14,9 +14,8 @@ namespace AsterGame.Model.SpaceShip
         //private readonly List<IShootingMode> _shootingModes;
 
 
-        public ShootShip(Transform cannonBarrel,
-            PoolForGameObjects<PlayerBullet> bulletsPool/*,
-            List<IShootingMode> shootingModes*/)
+        public ShootShip(Transform cannonBarrel, PoolForGameObjects<PlayerBullet> bulletsPool
+            /*, List<IShootingMode> shootingModes*/)
         {
             _cannonBarrel = cannonBarrel;
             _bulletsPool = bulletsPool;

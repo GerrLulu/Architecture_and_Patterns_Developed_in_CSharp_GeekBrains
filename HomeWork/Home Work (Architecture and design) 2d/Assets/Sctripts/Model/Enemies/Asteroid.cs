@@ -1,33 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AsterGame.Model.Enemies
 {
     internal class Asteroid : Enemy
     {
-        [SerializeField] private float _minForse;
-
-        private float _maxForse;
-
-
         protected override void Start()
         {
-            _healthPoint = Random.Range(_minHealthPoint, Mathf.
-                FloorToInt(_minHealthPoint * Randomizer(_minMultiplier, _maxMultiplier)));
-            _collisionDamage = Random.Range(_minCollisionDamage, Mathf.
-                FloorToInt(_minCollisionDamage * Randomizer(_minMultiplier, _maxMultiplier)));
-
-            _maxForse = _minForse * Randomizer(_minMultiplier, _maxMultiplier);
+            _healthPoint = Random.Range(_healthPoint, Mathf.
+                FloorToInt(_healthPoint * Randomizer(_minMultiplier, _maxMultiplier)));
+            _collisionDamage = Random.Range(_collisionDamage, Mathf.
+                FloorToInt(_collisionDamage * Randomizer(_minMultiplier, _maxMultiplier)));
 
             base.Start();
 
-            transform.eulerAngles = new Vector3(0.0f, 0.0f,
-                Random.value * 360.0f);
-            transform.localScale = new Vector3(transform.localScale.x *
-                Randomizer(_minMultiplier, _maxMultiplier), transform.localScale.y *
-                Randomizer(_minMultiplier, _maxMultiplier), 0.0f);
+            transform.eulerAngles = new Vector3(0.0f, 0.0f, Random.value * 360.0f);
+            transform.localScale = new Vector3(transform.localScale.x * Randomizer(_minMultiplier, _maxMultiplier),
+                transform.localScale.y * Randomizer(_minMultiplier, _maxMultiplier), 0.0f);
 
             _rigidbody.mass = _rigidbody.mass * Randomizer(_minMultiplier, _maxMultiplier);
         }
@@ -35,7 +23,7 @@ namespace AsterGame.Model.Enemies
 
         public override void Move(Vector2 direction)
         {
-            var forse = Random.Range(_minForse, _maxForse);
+            var forse = Random.Range(_moveForce, _maxMoveForse);
             _rigidbody.AddForce(direction * forse);
         }
 

@@ -32,7 +32,7 @@ namespace AsterGame.Controller
             float maxY = cameraPosition.y + halfHeight - marginY;
 
             Vector2 positionRb = _rigidbody.position;
-            Vector2 velocityRb = _rigidbody.linearVelocity; // поменялось с velocity, т.к. устарела
+            Vector2 velocityRb = _rigidbody.linearVelocity; //поменялось с velocity, т.к. устарела
 
             if (positionRb.x  < minX)
                 positionRb.x = maxX;

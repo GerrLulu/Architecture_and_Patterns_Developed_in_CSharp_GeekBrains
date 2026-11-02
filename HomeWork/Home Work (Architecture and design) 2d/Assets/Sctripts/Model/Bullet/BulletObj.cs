@@ -6,14 +6,17 @@ namespace AsterGame.Model.Bullet
 {
     internal abstract class BulletObj : MonoBehaviour
     {
+        [Header("Урон от пули")]
         [SerializeField] private int _damage;
+
+        [Header("Сила выстрела")]
         [SerializeField] private float _forceOfShot;
+
+        [Header("Пул пуль")]
         [SerializeField] private int _poolCount;
         [SerializeField] private bool _autoPoolExpansion;
 
         private Rigidbody2D _rigidbody;
-
-        private string _nameTag;
 
         public int PoolCount
         {
@@ -31,7 +34,7 @@ namespace AsterGame.Model.Bullet
         public event Action<int> OnDamageEnemyShip;
 
 
-        protected virtual void Awake() => _rigidbody = GetComponent<Rigidbody2D>();
+        protected virtual void Start() => _rigidbody = GetComponent<Rigidbody2D>();
 
         private void OnTriggerExit2D(Collider2D collision)
         {
@@ -42,17 +45,17 @@ namespace AsterGame.Model.Bullet
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
-            _nameTag = collision.tag;
-            Interaction();
+            var nameTag = collision.tag;
+            Interaction(nameTag);
         }
 
         
         public virtual void Shoot(Vector2 direction) =>
             _rigidbody.AddForce(direction * _forceOfShot);
 
-        protected virtual void Interaction()
+        protected virtual void Interaction(string nameTag)
         {
-            switch (_nameTag)
+            switch (nameTag)
             {
                 case ConstForGame.PLAYER_TAG:
                     OnDamagePlayer?.Invoke(_damage);

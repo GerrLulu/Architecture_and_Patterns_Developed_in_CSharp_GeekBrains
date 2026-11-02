@@ -9,25 +9,34 @@ namespace AsterGame.Model
 {
     internal sealed class Player : MonoBehaviour
     {
+        [Header("Кол-во жизней")]
+        [SerializeField] private int _healthPoint;
+
+        [Header("Передвижение")]
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
-        [SerializeField] private int _healthPoint;
+
+        [Header("Стрельба")]
         [SerializeField] private Transform _cannonBarrel;
         [SerializeField] private PlayerBullet _bulletPrefab;
-        [SerializeField] private Transform _containerPlayerBullets;
+        [SerializeField] private Transform _containerForBullets;
 
-        //iterator
-        //private List<IShootingMode> _shootingModes;
-
-        private float _offset = -90f;
+        //Камера для определение направелния по курсору
         private Camera _camera;
+        private float _offset = -90f;
         private Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
         private Ship _ship;
+        //Класс для считывания ввода
         private InputController _inputController;
+        //Класс для того чтобы объект оставался в поле камеры
         private ObjectInsideCamera _insideCamera;
+        //Класс для изменения кол-ва жизни
         private ChangerHealth _changerHealth;
         private PoolForGameObjects<PlayerBullet> _bulletsPool;
+
+        //iterator
+        //private List<IShootingMode> _shootingModes;
 
 
         private void Awake()
@@ -41,7 +50,7 @@ namespace AsterGame.Model
             _spriteRenderer = GetComponent<SpriteRenderer>();
 
             _bulletsPool = new PoolForGameObjects<PlayerBullet>(_bulletPrefab,
-                _bulletPrefab.PoolCount, _containerPlayerBullets)
+                _bulletPrefab.PoolCount, _containerForBullets)
             {
                 AutoPoolExpansion = _bulletPrefab.AutoPoolExpansion
             };
