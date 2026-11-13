@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 58296467}
   - component: {fileID: 58296468}
+  - component: {fileID: 58296469}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -149,10 +150,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 187148635}
-  - {fileID: 2096972356}
   - {fileID: 1512182302}
   - {fileID: 1293806378}
+  - {fileID: 187148635}
+  - {fileID: 1565058681}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &58296468
@@ -168,6 +169,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Controller.ListenerGameController
   _player: {fileID: 643157890}
+--- !u!114 &58296469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58296465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b47c9570ac5ed946abb892a00b520b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Controller.Spawner
+  _spawnOffset: 0
+  _marginOffset: 0
+  _conteinerAsteroids: {fileID: 1512182302}
+  _conteinerEnemyShip: {fileID: 1293806378}
 --- !u!1 &187148634
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +420,7 @@ MonoBehaviour:
   _acceleration: 0.1
   _cannonBarrel: {fileID: 1757797191}
   _bulletPrefab: {fileID: -1755291939387903260, guid: d8e18b4aa300e1e44999ee94622af269, type: 3}
-  _containerForBullets: {fileID: 0}
+  _containerForBullets: {fileID: 187148635}
 --- !u!50 &643157891
 Rigidbody2D:
   serializedVersion: 5
@@ -574,6 +591,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1565058680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565058681}
+  m_Layer: 0
+  m_Name: Conteiner Enemy Ships Bullets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565058681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565058680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 58296467}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1757797190
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,37 +730,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2096972355
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2096972356}
-  m_Layer: 0
-  m_Name: Conteiner Enemy Ships Bullets
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2096972356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096972355}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 58296467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

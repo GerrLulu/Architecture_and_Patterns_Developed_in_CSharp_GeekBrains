@@ -21,17 +21,13 @@ namespace AsterGame.Model
         [SerializeField] private PlayerBullet _bulletPrefab;
         [SerializeField] private Transform _containerForBullets;
 
-        //Камера для определение направелния по курсору
         private Camera _camera;
         private float _offset = -90f;
         private Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
         private Ship _ship;
-        //Класс для считывания ввода
         private InputController _inputController;
-        //Класс для того чтобы объект оставался в поле камеры
         private ObjectInsideCamera _insideCamera;
-        //Класс для изменения кол-ва жизни
         private ChangerHealth _changerHealth;
         private PoolForGameObjects<PlayerBullet> _bulletsPool;
 
@@ -91,8 +87,10 @@ namespace AsterGame.Model
             bool isAlive = true;
             _changerHealth.ChangeHealth(ref _healthPoint, value, ref isAlive);
 
-            if (isAlive == false)
-                gameObject.SetActive(isAlive);
+            //if (isAlive == false)
+            //    gameObject.SetActive(isAlive);
+
+            Debug.Log("Name:" + gameObject + "HP:" + _healthPoint);
 
             // messege broker
             //MessageBase.Create(this, ServiceShareData.MSG_DEATH, "Death");

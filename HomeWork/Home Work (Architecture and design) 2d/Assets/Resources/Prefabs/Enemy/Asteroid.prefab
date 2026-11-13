@@ -200,9 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08a8c7fceaf97e4b8c3d47071f44126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Model.Enemies.Asteroid
-  _minHealthPoint: 50
-  _minCollisionDamage: 5
   _minMultiplier: 1
   _maxMultiplier: 2
-  _minForse: 1500
-  Size: 0
+  _healthPoint: 50
+  _moveForce: 2
+  _collisionDamage: 5
+  _poolCount: 5
+  _autoPoolExpansion: 0

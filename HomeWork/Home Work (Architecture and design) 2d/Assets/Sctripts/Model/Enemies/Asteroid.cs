@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using AsterGame.Additionally;
+using UnityEngine;
 
 namespace AsterGame.Model.Enemies
 {
-    internal class Asteroid : Enemy
+    internal sealed class Asteroid : Enemy
     {
         protected override void Start()
         {
+            gameObject.tag = ConstForGame.ASTEROID_TAG;
+
             _healthPoint = Random.Range(_healthPoint, Mathf.
                 FloorToInt(_healthPoint * Randomizer(_minMultiplier, _maxMultiplier)));
             _collisionDamage = Random.Range(_collisionDamage, Mathf.
@@ -24,7 +27,7 @@ namespace AsterGame.Model.Enemies
         public override void Move(Vector2 direction)
         {
             var forse = Random.Range(_moveForce, _maxMoveForse);
-            _rigidbody.AddForce(direction * forse);
+            _rigidbody.AddForce(direction * forse, ForceMode2D.Impulse);
         }
 
         //Visitor

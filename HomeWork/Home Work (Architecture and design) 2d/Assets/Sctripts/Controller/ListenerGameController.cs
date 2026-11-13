@@ -16,21 +16,40 @@ namespace AsterGame.Controller
         private void Start()
         {
             _bullets = GetComponentsInChildren<BulletObj>(true);
-            foreach (var bullet in _bullets)
-                bullet.OnDamagePlayer += _player.ChangeHealthPlayer;
-
             _enemies = GetComponentsInChildren<Enemy>(true);
+
+
+
+            foreach (var bullet in _bullets)
+            {
+                bullet.OnDamage += _player.ChangeHealthPlayer;
+
+                foreach (var enemy in _enemies)
+                    bullet.OnDamage += enemy.TakeDamage;
+            }
+
             foreach (var enemy in _enemies)
-                enemy.OnCollisionDamage += _player.ChangeHealthPlayer;
+            {
+                enemy.OnColliderDamage += _player.ChangeHealthPlayer;
+                enemy.OnColliderDamage += enemy.TakeDamage;
+            }
         }
 
         private void OnDisable()
         {
             foreach (var bullet in _bullets)
-                bullet.OnDamagePlayer -= _player.ChangeHealthPlayer;
+            {
+                bullet.OnDamage -= _player.ChangeHealthPlayer;
+
+                foreach (var enemy in _enemies)
+                    bullet.OnDamage -= enemy.TakeDamage;
+            }
 
             foreach (var enemy in _enemies)
-                enemy.OnCollisionDamage -= _player.ChangeHealthPlayer;
+            {
+                enemy.OnColliderDamage -= _player.ChangeHealthPlayer;
+                enemy.OnColliderDamage -= enemy.TakeDamage;
+            }
         }
     }
 }

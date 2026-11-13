@@ -1,4 +1,6 @@
 ﻿using AsterGame.Additionally;
+using AsterGame.Interface;
+using AsterGame.Model.Enemies;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,56 +8,91 @@ using UnityEngine;
 
 namespace AsterGame.Controller
 {
-    internal sealed class Spawner<T> where T : MonoBehaviour
+    internal sealed class Spawner : MonoBehaviour
     {
-        private float _spawnRate;
-        private float _spawnAmount; // at one time/за раз
+        [Header("Отступы")]
+        [SerializeField] private float _spawnOffset;
+        [SerializeField] private float _marginOffset;
+
+        [Header("Контейнеры для пулов")]
+        [SerializeField] private Transform _conteinerAsteroids;
+        [SerializeField] private Transform _conteinerEnemyShips;
+
         private Camera _camera;
-        private T _prefab;
-        private PoolForGameObjects<T> _pool;
-        private int _poolCount;
-        private bool _autoPoolExpansion;
+        private float _halfHeight;
+        private float _halfWeidth;
+        private Vector3 _camPosition;
 
-        private float _minSize;
-        private float _maxSize;
-
-        private float _spawnDistance;
-        private float _trajectoryVariance;
+        private Asteroid _prefabAsteroid;
+        private PoolForGameObjects<Asteroid> _asteroidsPool;
+        private EnemyShip _prefabEnemyShip;
+        private PoolForGameObjects<EnemyShip> _enemyShipsPool;
 
 
-        public Spawner(float spawnRate, float spawnAmount, Camera camera,
-            T prefab, PoolForGameObjects<T> pool, int poolCount,
-            bool autoPoolExpansion)
+        private void Awake()
         {
-            _spawnRate = spawnRate;
-            _spawnAmount = spawnAmount;
-            _camera = camera;
-            _prefab = prefab;
-            _pool = pool;
-            _poolCount = poolCount;
-            _autoPoolExpansion = autoPoolExpansion;
+            _camera = Camera.main;
+            _halfHeight = _camera.orthographicSize;
+            _halfWeidth = _halfHeight * _camera.aspect;
+            _camPosition = _camera.transform.position;
         }
 
-        public Spawner(float spawnRate, float spawnAmount, Camera camera,
-            T prefab, PoolForGameObjects<T> pool, int poolCount,
-            bool autoPoolExpansion, float minSize, float maxSize)
+        private void Start()
         {
-            _spawnRate = spawnRate;
-            _spawnAmount = spawnAmount;
-            _camera = camera;
-            _prefab = prefab;
-            _pool = pool;
-            _poolCount = poolCount;
-            _autoPoolExpansion = autoPoolExpansion;
-            _minSize = minSize;
-            _maxSize = maxSize;
+            _prefabAsteroid = EnemyFactory.CreateAsteroid();
+            _asteroidsPool = new PoolForGameObjects<Asteroid>(_prefabAsteroid,
+                _prefabAsteroid.PoolCount, _conteinerAsteroids)
+            {
+                AutoPoolExpansion = _prefabAsteroid.AutoPoolExpansion
+            };
+
+            IEnemyShipFactory shipFactory = new EnemyFactory();
+            _prefabEnemyShip = shipFactory.CreateEnemyShip();
+            _enemyShipsPool = new PoolForGameObjects<EnemyShip>(_prefabEnemyShip,
+                _prefabEnemyShip.PoolCount, _conteinerEnemyShips)
+            {
+                AutoPoolExpansion = _prefabEnemyShip.AutoPoolExpansion
+            };
         }
 
 
-        private void Spawn()
+        private Vector2 GetRandomSpawnPosition()
         {
-            Vector3 spawnDirection;
-            Vector3 spawnPoint;
+            int side = UnityEngine.Random.Range(0, 4);
+
+            float x = 0f, y = 0f;
+
+            switch (side)
+            {
+                case 0:
+                    x = _camPosition.x - _halfWeidth - _spawnOffset;
+                    y = _camPosition.y + UnityEngine.Random.Range(-_halfHeight, _halfHeight);
+                    break;
+                case 1:
+                    x = _camPosition.x + _halfWeidth + _spawnOffset;
+                    y = _camPosition.y + UnityEngine.Random.Range(-_halfHeight, _halfHeight);
+                    break;
+                case 2:
+                    x = _camPosition.x + UnityEngine.Random.Range(-_halfWeidth, _halfWeidth);
+                    y = _camPosition.y - _halfHeight - _spawnOffset;
+                    break;
+                case 3:
+                    x = _camPosition.x + UnityEngine.Random.Range(-_halfWeidth, _halfWeidth);
+                    y = _camPosition.y + _halfHeight + _spawnOffset;
+                    break;
+            }
+
+            return new Vector2(x, y);
+        }
+
+        private Vector2 GetDirecrionInside(Vector2 spawnPos)
+        {
+            Vector2 target = new Vector2(_camPosition.x +
+                UnityEngine.Random.Range(-_halfWeidth * _marginOffset, _halfWeidth * _marginOffset),
+                _camPosition.y +
+                UnityEngine.Random.Range(-_halfHeight * _marginOffset, _halfHeight * _marginOffset));
+
+            return (target - spawnPos).normalized;
         }
     }
 }

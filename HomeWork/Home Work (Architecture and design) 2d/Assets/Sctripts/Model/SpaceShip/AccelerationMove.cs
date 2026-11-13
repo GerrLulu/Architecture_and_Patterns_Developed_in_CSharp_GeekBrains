@@ -7,14 +7,15 @@ namespace AsterGame.Model.SpaceShip
         private readonly float _acceleration;
 
 
-        public AccelerationMove(Rigidbody2D rigidbody, float speed, float acceleration) : base(rigidbody, speed)
+        public AccelerationMove(Rigidbody2D rigidbody, float speed, float acceleration)
+            : base(rigidbody, speed)
         {
             _acceleration = acceleration;
         }
 
 
-        public void AddAcceleration() => Speed += _acceleration;
+        public void AddAcceleration() => _speed += _acceleration;
 
-        public void RemoveAcceleration() => Speed -= _acceleration;
+        public void RemoveAcceleration() => _speed -= _acceleration;
     }
 }

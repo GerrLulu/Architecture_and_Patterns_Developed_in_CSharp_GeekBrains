@@ -29,7 +29,7 @@ namespace AsterGame.Controller
 
         public void Rotating(Vector3 position)
         {
-            var direction = _camera.ScreenToWorldPoint(Input.mousePosition) - position;
+            var direction = (_camera.ScreenToWorldPoint(Input.mousePosition) - position).normalized;
             _ship.Rotation(direction);
         }
 

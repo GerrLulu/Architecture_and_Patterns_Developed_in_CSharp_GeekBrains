@@ -16,19 +16,33 @@ namespace AsterGame.Model.Enemies
 
         [Header("Движение")]
         [SerializeField] protected float _moveForce;
-        protected float _maxMoveForse;
 
         [Header("Урон от прикосновения")]
         [SerializeField] protected int _collisionDamage;
 
+        [Header("Пул врагов")]
+        [SerializeField] private int _poolCount;
+        [SerializeField] private bool _autoPoolExpansion;
+
+        protected float _maxMoveForse;
         private Camera _camera;
         protected Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
         private ObjectInsideCamera _insideCamera;
-        //Класс для изминения кол-во очков жизни
         private ChangerHealth _changerHealth;
 
-        public event Action<int> OnCollisionDamage;
+        public int PoolCount
+        {
+            get {  return _poolCount; }
+            protected set { _poolCount = value; }
+        }
+        public bool AutoPoolExpansion
+        {
+            get { return _autoPoolExpansion; }
+            protected set { _autoPoolExpansion = value; }
+        }
+
+        public event Action<int> OnColliderDamage;
 
 
         protected virtual void Start ()
@@ -46,22 +60,32 @@ namespace AsterGame.Model.Enemies
 
         private void FixedUpdate() => _insideCamera.KeepInsideCamera();
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collision.tag == ConstForGame.PLAYER_TAG)
-                OnCollisionDamage?.Invoke(_collisionDamage);
+            bool isDamageable = collider.tag switch
+            {
+                ConstForGame.PLAYER_TAG => true,
+                ConstForGame.ASTEROID_TAG => true,
+                ConstForGame.ENEMY_SHIP_TAG => true,
+                _ => false
+            };
+
+            if (isDamageable)
+                OnColliderDamage?.Invoke(_collisionDamage);
         }
 
 
         public abstract void Move(Vector2 direction);
 
-        protected virtual void TakeDamage(int value)
+        public virtual void TakeDamage(int value)
         {
             bool isAlive = gameObject.activeSelf;
             _changerHealth.ChangeHealth(ref _healthPoint, value, ref isAlive);
 
             if (isAlive == false)
                 gameObject.SetActive(false);
+
+            Debug.Log("Name:" + gameObject + "HP:" + _healthPoint);
         }
 
         protected float Randomizer(float min, float max)

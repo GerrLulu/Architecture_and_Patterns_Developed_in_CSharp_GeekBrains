@@ -16,7 +16,7 @@ namespace AsterGame.Model.Enemies
         public EnemyShip CreateEnemyShip()
         {
             var enemy = Object.Instantiate(Resources.
-                Load<EnemyShip>("Prefabs/Enemy/EnemyShip"));
+                Load<EnemyShip>("Prefabs/Enemy/Enemy Ship"));
             return enemy;
         }
     }

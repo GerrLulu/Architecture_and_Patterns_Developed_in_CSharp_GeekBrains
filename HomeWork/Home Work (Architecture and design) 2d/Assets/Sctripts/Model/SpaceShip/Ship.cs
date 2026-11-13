@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AsterGame.Model.SpaceShip
 {
-    internal sealed class Ship : IMove, IRotation/*, IShoot*/
+    internal sealed class Ship : IMove, IRotation, IShoot
     {
         private readonly IMove _moveImplementation;
         private readonly IRotation _rotationImplementation;
