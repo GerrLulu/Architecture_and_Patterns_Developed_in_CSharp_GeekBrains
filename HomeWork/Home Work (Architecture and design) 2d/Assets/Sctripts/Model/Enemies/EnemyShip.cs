@@ -10,6 +10,7 @@ namespace AsterGame.Model.Enemies
         [SerializeField] private float _shootTimer;
         [SerializeField] private float _fireInterval;
         [SerializeField] private Transform _cannonBarrel;
+        [SerializeField] private EnemyBullet _bulletPrefab;
         [SerializeField] private Transform _containerEnemyBullets;
 
         [Header("Движение")]
@@ -19,8 +20,9 @@ namespace AsterGame.Model.Enemies
         private float _pauseTimer;
         private float _offset = -90f;
         private Transform _playeTarget;
-        private EnemyBullet _bulletPrefab;
         private PoolForGameObjects<EnemyBullet> _bulletsPool;
+
+        public Transform ConteinerEnemyBullets {  get; set; }
 
 
         protected override void Start()
@@ -36,7 +38,6 @@ namespace AsterGame.Model.Enemies
                     _playeTarget = player.transform;
             }
 
-            _bulletPrefab = Instantiate(Resources.Load<EnemyBullet>("Prefabs/Bullet/Enemy Bullet"));
             _bulletsPool = new PoolForGameObjects<EnemyBullet>(_bulletPrefab,
                 _bulletPrefab.PoolCount, _containerEnemyBullets)
             {

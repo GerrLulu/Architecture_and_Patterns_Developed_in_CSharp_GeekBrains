@@ -11,6 +11,7 @@ namespace AsterGame.Controller
 
         private BulletObj[] _bullets;
         private Enemy[] _enemies;
+        private Spawner _spawner;
 
 
         private void Start()
@@ -18,20 +19,30 @@ namespace AsterGame.Controller
             _bullets = GetComponentsInChildren<BulletObj>(true);
             _enemies = GetComponentsInChildren<Enemy>(true);
 
-
+            _spawner = GetComponent<Spawner>();
 
             foreach (var bullet in _bullets)
             {
-                bullet.OnDamage += _player.ChangeHealthPlayer;
+                bullet.OnDamagePlayer += _player.ChangeHealthPlayer;
 
-                foreach (var enemy in _enemies)
-                    bullet.OnDamage += enemy.TakeDamage;
+                foreach (Asteroid asteroid in _enemies)
+                    bullet.OnDamageAsteroid += asteroid.TakeDamage;
+
+                foreach (EnemyShip ship in _enemies)
+                    bullet.OnDamageEnemyShip += ship.TakeDamage;
             }
 
             foreach (var enemy in _enemies)
             {
-                enemy.OnColliderDamage += _player.ChangeHealthPlayer;
-                enemy.OnColliderDamage += enemy.TakeDamage;
+                enemy.OnColliderDamagePlayer += _player.ChangeHealthPlayer;
+
+                if (enemy is Asteroid)
+                    enemy.OnColliderDamageAsteroid += enemy.TakeDamage;
+
+                if (enemy is EnemyShip)
+                    enemy.OnColliderDamageEnemyShip += enemy.TakeDamage;
+
+                enemy.OnCounting += _spawner.EnemyCounting;
             }
         }
 
@@ -39,16 +50,26 @@ namespace AsterGame.Controller
         {
             foreach (var bullet in _bullets)
             {
-                bullet.OnDamage -= _player.ChangeHealthPlayer;
+                bullet.OnDamagePlayer -= _player.ChangeHealthPlayer;
 
-                foreach (var enemy in _enemies)
-                    bullet.OnDamage -= enemy.TakeDamage;
+                foreach (Asteroid asteroid in _enemies)
+                    bullet.OnDamageAsteroid -= asteroid.TakeDamage;
+
+                foreach (EnemyShip ship in _enemies)
+                    bullet.OnDamageEnemyShip -= ship.TakeDamage;
             }
 
             foreach (var enemy in _enemies)
             {
-                enemy.OnColliderDamage -= _player.ChangeHealthPlayer;
-                enemy.OnColliderDamage -= enemy.TakeDamage;
+                enemy.OnColliderDamagePlayer -= _player.ChangeHealthPlayer;
+
+                if (enemy is Asteroid)
+                    enemy.OnColliderDamageAsteroid -= enemy.TakeDamage;
+
+                if (enemy is EnemyShip)
+                    enemy.OnColliderDamageEnemyShip -= enemy.TakeDamage;
+
+                enemy.OnCounting -= _spawner.EnemyCounting;
             }
         }
     }

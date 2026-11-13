@@ -11,8 +11,8 @@ namespace AsterGame.Model.Enemies
 
             _healthPoint = Random.Range(_healthPoint, Mathf.
                 FloorToInt(_healthPoint * Randomizer(_minMultiplier, _maxMultiplier)));
-            _collisionDamage = Random.Range(_collisionDamage, Mathf.
-                FloorToInt(_collisionDamage * Randomizer(_minMultiplier, _maxMultiplier)));
+            _collierDamage = Random.Range(_collierDamage, Mathf.
+                FloorToInt(_collierDamage * Randomizer(_minMultiplier, _maxMultiplier)));
 
             base.Start();
 

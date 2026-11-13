@@ -29,7 +29,9 @@ namespace AsterGame.Model.Bullet
             protected set { _autoPoolExpansion = value; }
         }
 
-        public event Action<int> OnDamage;
+        public event Action<int> OnDamagePlayer;
+        public event Action<int> OnDamageAsteroid;
+        public event Action<int> OnDamageEnemyShip;
 
 
         protected virtual void Start() => _rigidbody = GetComponent<Rigidbody2D>();
@@ -41,25 +43,31 @@ namespace AsterGame.Model.Bullet
             return;
         }
 
-        protected virtual void OnTriggerEnter2D(Collider2D collider)
-        {
-            bool isDamageable = collider.tag switch
-            {
-                ConstForGame.PLAYER_TAG => true,
-                ConstForGame.ASTEROID_TAG => true,
-                ConstForGame.ENEMY_SHIP_TAG => true,
-                _ => false
-            };
+        protected virtual void OnTriggerEnter2D(Collider2D collider) =>
+            Interaction(collider.tag);
 
-            if (isDamageable)
-            {
-                OnDamage?.Invoke(_damage);
-                gameObject.SetActive(false);
-            }
-        }
 
-        
         public virtual void Shoot(Vector2 direction) =>
             _rigidbody.AddForce(direction * _forceOfShot, ForceMode2D.Impulse);
+
+        private void Interaction(string nameTag)
+        {
+            switch (nameTag)
+            {
+                case ConstForGame.PLAYER_TAG:
+                    OnDamagePlayer?.Invoke(_damage);
+                    break;
+                case ConstForGame.ASTEROID_TAG:
+                    OnDamageAsteroid?.Invoke(_damage);
+                    break;
+                case ConstForGame.ENEMY_SHIP_TAG:
+                    OnDamageEnemyShip?.Invoke(_damage);
+                    break;
+                default:
+                    return;
+            }
+
+            gameObject.SetActive(false);
+        }
     }
 }

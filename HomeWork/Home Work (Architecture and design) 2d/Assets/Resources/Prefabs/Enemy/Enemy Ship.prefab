@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1639851588031489044}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,7 +50,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7291179625425644266
 Transform:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -196,7 +196,7 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.5773587}
@@ -219,12 +219,13 @@ MonoBehaviour:
   _maxMultiplier: 2
   _healthPoint: 100
   _moveForce: 5
-  _collisionDamage: 5
+  _collierDamage: -2
   _poolCount: 5
   _autoPoolExpansion: 0
   _shootTimer: 10
   _fireInterval: 2
   _cannonBarrel: {fileID: 4444304751819637915}
+  _bulletPrefab: {fileID: 2970309461541563307, guid: c58d7ad2defca4b4b959b202d1c56c67, type: 3}
   _containerEnemyBullets: {fileID: 0}
   _stopTreshold: 0.2
   _pauseAfterStop: 3

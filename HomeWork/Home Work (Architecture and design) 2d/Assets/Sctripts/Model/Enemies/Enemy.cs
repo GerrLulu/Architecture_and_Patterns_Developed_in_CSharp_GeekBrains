@@ -18,7 +18,7 @@ namespace AsterGame.Model.Enemies
         [SerializeField] protected float _moveForce;
 
         [Header("Урон от прикосновения")]
-        [SerializeField] protected int _collisionDamage;
+        [SerializeField] protected int _collierDamage;
 
         [Header("Пул врагов")]
         [SerializeField] private int _poolCount;
@@ -42,7 +42,10 @@ namespace AsterGame.Model.Enemies
             protected set { _autoPoolExpansion = value; }
         }
 
-        public event Action<int> OnColliderDamage;
+        public event Action<int> OnColliderDamagePlayer;
+        public event Action<int> OnColliderDamageAsteroid;
+        public event Action<int> OnColliderDamageEnemyShip;
+        public event Action<string> OnCounting;
 
 
         protected virtual void Start ()
@@ -60,22 +63,29 @@ namespace AsterGame.Model.Enemies
 
         private void FixedUpdate() => _insideCamera.KeepInsideCamera();
 
-        private void OnTriggerEnter2D(Collider2D collider)
-        {
-            bool isDamageable = collider.tag switch
-            {
-                ConstForGame.PLAYER_TAG => true,
-                ConstForGame.ASTEROID_TAG => true,
-                ConstForGame.ENEMY_SHIP_TAG => true,
-                _ => false
-            };
-
-            if (isDamageable)
-                OnColliderDamage?.Invoke(_collisionDamage);
-        }
+        private void OnTriggerEnter2D(Collider2D collider) =>
+            Interaction(collider.tag);
 
 
         public abstract void Move(Vector2 direction);
+
+        private void Interaction(string nameTag)
+        {
+            switch (nameTag)
+            {
+                case ConstForGame.PLAYER_TAG:
+                    OnColliderDamagePlayer?.Invoke(_collierDamage);
+                    break;
+                case ConstForGame.ASTEROID_TAG:
+                    OnColliderDamageAsteroid?.Invoke(_collierDamage);
+                    break;
+                case ConstForGame.ENEMY_SHIP_TAG:
+                    OnColliderDamageEnemyShip?.Invoke(_collierDamage);
+                    break;
+                default:
+                    return;
+            }
+        }
 
         public virtual void TakeDamage(int value)
         {
@@ -83,7 +93,10 @@ namespace AsterGame.Model.Enemies
             _changerHealth.ChangeHealth(ref _healthPoint, value, ref isAlive);
 
             if (isAlive == false)
+            {
                 gameObject.SetActive(false);
+                OnCounting?.Invoke(gameObject.tag);
+            }
 
             Debug.Log("Name:" + gameObject + "HP:" + _healthPoint);
         }

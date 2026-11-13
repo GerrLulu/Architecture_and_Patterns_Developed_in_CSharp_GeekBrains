@@ -128,8 +128,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58296467}
-  - component: {fileID: 58296468}
   - component: {fileID: 58296469}
+  - component: {fileID: 58296468}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -181,10 +181,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b47c9570ac5ed946abb892a00b520b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Controller.Spawner
-  _spawnOffset: 0
-  _marginOffset: 0
+  _spawnOffset: 1.5
+  _marginOffset: 0.7
+  _prefabAsteroid: {fileID: 6414923068545593344, guid: 7bd7e00ee9ab4e249b1c73a8f1da6a9c, type: 3}
+  _prefabEnemyShip: {fileID: 5289130129206029948, guid: f419ca9d7445a3a4e8a71b44c04abc04, type: 3}
   _conteinerAsteroids: {fileID: 1512182302}
-  _conteinerEnemyShip: {fileID: 1293806378}
+  _conteinerEnemyShips: {fileID: 1293806378}
+  _conteinerEnemyBullets: {fileID: 1565058681}
+  _maxAsteroids: 7
+  _maxEnemyShips: 2
+  _asteroidInterval: 3
+  _enemyShipInterval: 6
 --- !u!1 &187148634
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +654,7 @@ Transform:
   m_GameObject: {fileID: 1757797190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

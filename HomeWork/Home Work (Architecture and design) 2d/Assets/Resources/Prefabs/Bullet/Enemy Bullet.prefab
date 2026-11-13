@@ -170,6 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsterGame.Model.Bullet.EnemyBullet
   _damage: -2
-  _forceOfShot: 500
+  _forceOfShot: 10
   _poolCount: 100
   _autoPoolExpansion: 1
